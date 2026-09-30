@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface ProjectSelectorProps {
   projects: string[];
@@ -27,7 +33,9 @@ export default function ProjectSelector({
               onPress={() => onSelectProject(project)}
               activeOpacity={0.7}
             >
-              <Text style={[styles.pillText, isSelected && styles.activePillText]}>
+              <Text
+                style={[styles.pillText, isSelected && styles.activePillText]}
+              >
                 {project}
               </Text>
             </TouchableOpacity>
