@@ -1,98 +1,63 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from "@/components/Header";
+import ProjectSelector from "@/components/ProjectSelector";
+import SearchBar from "@/components/SearchBar";
+import StatusFilter from "@/components/StatusFilter";
+import TaskCard from "@/components/TaskCard";
+import { TASKS } from "@/data/tasks";
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+const PROJECTS = ["All", "Work", "Personal", "Ideas", "Grocery", "Design"]; // for workspace
+const STATUSES = ["All", "To Do", "In Progress", "Completed"]; // for filter
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function TaskListScreen() {
+  const [selectedProject, setSelectedProject] = useState("All");
+  const [selectedStatus, setSelectedStatus] = useState("All");
+  const [search, setSearch] = useState("");
+
+  const visibleTasks = TASKS.filter((task) => {
+    const checkProject = selectedProject === "All" || task.project === selectedProject;
+    const checkStatus = selectedStatus === "All" || task.status === selectedStatus;
+    const checkSearch = task.title.toLowerCase().includes(search.toLowerCase());
+
+    return checkProject && checkStatus && checkSearch;
+  });
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <View style={styles.screen}>
+      <Header title="All Tasks" subtitle="12 tasks" />
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      <ProjectSelector
+        projects={PROJECTS}
+        selectedProject={selectedProject}
+        onSelectProject={setSelectedProject}
+      />
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      <SearchBar value={search} onChangeText={setSearch} />
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <StatusFilter
+        statuses={STATUSES}
+        selectedStatus={selectedStatus}
+        onSelectStatus={setSelectedStatus}
+      />
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      {visibleTasks.map((task) => (
+        <TaskCard
+          key={task.id}
+          title={task.title}
+          status={task.status}
+          priority={task.priority}
+          assignee={task.assignee}
+          dueDate={task.dueDate}
+        />
+      ))}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+    backgroundColor: "#fff",
   },
 });
