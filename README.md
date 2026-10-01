@@ -1,57 +1,106 @@
-# Welcome to your Expo app 👋
+# TaskManagerApp
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern, offline-first mobile task management application built with **React Native**, **Expo Router**, and **TypeScript**. Features dynamic category filtering, search, task creation with custom date selection and persistent local storage via AsyncStorage.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- **Task Overview & Filtering:** Browse tasks filtered by project categories (*Work*, *Personal*, *Design*, etc.) and completion status (*To Do*, *In Progress*, *Completed*).
+- **Instant Search:** Real-time search by task title.
+- **Task Creation:** Create tasks with custom categories, priority levels (*Low*, *Medium*, *High*), assignees, and due dates via native date pickers.
+- **Offline Persistence:** Tasks persist locally on the device using `@react-native-async-storage/async-storage`.
+- **Dynamic Safe Area & Status Bar:** Seamless notch and status bar styling across modern iOS and Android devices.
+- **Modular Component Architecture:** Clean separation of concerns with atomic, reusable components.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Screenshots
 
-In the output, you'll find options to open the app in a
+| Task List Screen | Create Task Screen |
+|:---:|:---:|
+| <img src="assets/screenshots/task-list.png" width="280" alt="Task List Screen" /> | <img src="assets/screenshots/create-task.png" width="280" alt="Create Task Screen" /> |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Tech Stack
 
-## Get a fresh project
+| Category | Technology |
+|---|---|
+| **Framework** | [Expo](https://expo.dev/) (SDK 57) / [React Native](https://reactnative.dev/) |
+| **Routing** | [Expo Router](https://docs.expo.dev/router/introduction/) (File-based navigation) |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) |
+| **State Management** | React Context API (`TasksContext`) |
+| **Local Storage** | [`@react-native-async-storage/async-storage`](https://react-native-async-storage.github.io/async-storage/) |
+| **Date Picker** | [`@react-native-community/datetimepicker`](https://github.com/react-native-datetimepicker/datetimepicker) |
+| **Styling** | React Native `StyleSheet` |
 
-When you're ready, run:
+---
+
+## Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+- **[Node.js](https://nodejs.org/)** (v18.x or higher, LTS recommended)
+- **npm** (comes with Node.js)
+- **Expo Go** app on your physical iOS or Android device or a configured Android Emulator / iOS Simulator.
+
+---
+
+## Getting Started
+
+### 1. Clone & Navigate to Project
 
 ```bash
-npm run reset-project
+git clone https://github.com/KHAGENDRA0P/TaskManagerApp
+cd TaskManagerApp
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Dependencies
 
-### Other setup steps
+Always install dependencies using `npm install` or `npx expo install`:
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npm install
+```
 
-## Learn more
+### 3. Start the Development Server
 
-To learn more about developing your project with Expo, look at the following resources:
+Start the local Expo development server:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start -c
+```
 
-## Join the community
+> **Note:** The `-c` flag clears Metro bundler cache to prevent stale bundles or memory bloat.
 
-Join our community of developers creating universal apps.
+### 4. Open the App
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# TaskManagerApp
+- **Physical Device:** Open the **Expo Go** app and scan the QR code displayed in your terminal.
+- **Android Emulator:** Press `a` in the terminal (or run `npm run android`).
+- **iOS Simulator:** Press `i` in the terminal (or run `npm run ios`, macOS required).
+- **Web Browser:** Press `w` in the terminal (or run `npm run web`).
+
+---
+
+## Project Structure
+
+```text
+src/
+├── app/                  # Route screens (Expo Router)
+│   ├── _layout.tsx       # Root layout + Providers + StatusBar
+│   ├── index.tsx         # Home screen ("/")
+│   └── create-task.tsx   # New task screen ("/create-task")
+├── components/           # Feature-sliced component modules
+│   ├── TaskList/         # Task list components & filters
+│   ├── CreateTask/       # Task form components & date picker
+│   └── common/           # Shared UI states (Loading, Empty, Error)
+├── context/              # Global state & AsyncStorage persistence
+└── data/                 # Default initial tasks mock dataset
+```
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
