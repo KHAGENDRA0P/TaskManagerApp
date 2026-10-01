@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
   ASSIGNEES,
@@ -102,7 +103,7 @@ export default function CreateTaskScreen() {
   };
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       <FormHeader title="New Task" onCancel={navigateBack} />
 
       <KeyboardAvoidingView
@@ -235,7 +236,7 @@ export default function CreateTaskScreen() {
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 

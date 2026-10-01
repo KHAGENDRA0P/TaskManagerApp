@@ -11,6 +11,7 @@ import { useTasks } from "@/context/TasksContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const PROJECTS = ["All", "Work", "Personal", "Ideas", "Grocery", "Design"];
 const STATUSES = ["All", "To Do", "In Progress", "Completed"];
@@ -42,7 +43,7 @@ export default function TaskListScreen() {
   const taskCountText = `${visibleTasks.length} ${visibleTasks.length === 1 ? "task" : "tasks"}`;
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       <Header title="All Tasks" subtitle={taskCountText} />
 
       <View style={styles.actionContainer}>
@@ -79,7 +80,7 @@ export default function TaskListScreen() {
           ))}
         </ScrollView>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

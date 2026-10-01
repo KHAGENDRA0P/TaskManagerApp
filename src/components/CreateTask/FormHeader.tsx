@@ -19,7 +19,7 @@ export default function FormHeader({ title, onCancel }: FormHeaderProps) {
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: 60,
+    paddingTop: 16,
     paddingHorizontal: 16,
     paddingBottom: 16,
     flexDirection: "row",
