@@ -1,7 +1,13 @@
 import { LoadingState } from "@/components/common";
 import { TASKS } from "@/data/tasks";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 export interface Task {
   id: string;
@@ -48,14 +54,16 @@ export function TasksProvider({ children }: { children: ReactNode }) {
 
     loadTasks();
   }, []);
-  
+
   const addTask = (newTask: Task) => {
     setTasks((prevTasks) => {
       const currentList = Array.isArray(prevTasks) ? prevTasks : TASKS;
       const updated = [newTask, ...currentList];
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated)).catch((error) => {
-        console.error("Failed to save tasks to storage", error);
-      });
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updated)).catch(
+        (error) => {
+          console.error("Failed to save tasks to storage", error);
+        },
+      );
       return updated;
     });
   };

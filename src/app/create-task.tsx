@@ -88,9 +88,7 @@ export default function CreateTaskScreen() {
           priority,
           assignee,
           dueDate:
-            dateOption === "Custom Date"
-              ? formatDate(customDate)
-              : dateOption,
+            dateOption === "Custom Date" ? formatDate(customDate) : dateOption,
         });
 
         setIsSaving(false);
@@ -222,16 +220,17 @@ export default function CreateTaskScreen() {
 
           {/* create task button */}
           <TouchableOpacity
-            style={[
-              styles.saveButton,
-              saveSuccess && styles.successButton,
-            ]}
+            style={[styles.saveButton, saveSuccess && styles.successButton]}
             onPress={handleSaveTask}
             activeOpacity={0.8}
             disabled={isSaving || saveSuccess}
           >
             <Text style={styles.saveButtonText}>
-              {isSaving ? "Saving..." : saveSuccess ? "Task Created" : "Create Task"}
+              {isSaving
+                ? "Saving..."
+                : saveSuccess
+                  ? "Task Created"
+                  : "Create Task"}
             </Text>
           </TouchableOpacity>
         </ScrollView>
