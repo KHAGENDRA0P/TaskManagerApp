@@ -7,7 +7,7 @@ import {
   TaskCard,
 } from "@/components/TaskList";
 import { EmptyState } from "@/components/common";
-import { TASKS } from "@/data/tasks";
+import { useTasks } from "@/context/TasksContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -16,6 +16,7 @@ const PROJECTS = ["All", "Work", "Personal", "Ideas", "Grocery", "Design"];
 const STATUSES = ["All", "To Do", "In Progress", "Completed"];
 
 export default function TaskListScreen() {
+  const { tasks } = useTasks();
   const [selectedProject, setSelectedProject] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [search, setSearch] = useState("");
@@ -26,18 +27,23 @@ export default function TaskListScreen() {
     router.push("/create-task");
   };
 
-  const visibleTasks = TASKS.filter((task) => {
+  const visibleTasks = (tasks || []).filter((task) => {
+    if (!task) return false;
     const checkProject =
       selectedProject === "All" || task.project === selectedProject;
     const checkStatus =
       selectedStatus === "All" || task.status === selectedStatus;
-    const checkSearch = task.title.toLowerCase().includes(search.toLowerCase());
+    const checkSearch = task.title
+      ? task.title.toLowerCase().includes(search.toLowerCase())
+      : false;
     return checkProject && checkStatus && checkSearch;
   });
 
+  const taskCountText = `${visibleTasks.length} ${visibleTasks.length === 1 ? "task" : "tasks"}`;
+
   return (
     <View style={styles.screen}>
-      <Header title="All Tasks" subtitle="12 tasks" />
+      <Header title="All Tasks" subtitle={taskCountText} />
 
       <View style={styles.actionContainer}>
         <AddTaskButton onPress={handleAddTask} />

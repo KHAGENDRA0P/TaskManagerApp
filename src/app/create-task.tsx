@@ -1,4 +1,4 @@
-import { TASKS } from "@/data/tasks";
+import { useTasks } from "@/context/TasksContext";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
@@ -27,6 +27,7 @@ import {
 
 export default function CreateTaskScreen() {
   const router = useRouter();
+  const { addTask } = useTasks();
   const scrollRef = useRef<ScrollView>(null);
 
   const [title, setTitle] = useState("");
@@ -79,7 +80,7 @@ export default function CreateTaskScreen() {
 
     setTimeout(() => {
       try {
-        const newTask = {
+        addTask({
           id: Date.now().toString(),
           title: title.trim(),
           project,
@@ -90,9 +91,8 @@ export default function CreateTaskScreen() {
             dateOption === "Custom Date"
               ? formatDate(customDate)
               : dateOption,
-        };
+        });
 
-        TASKS.unshift(newTask);
         setIsSaving(false);
         setSaveSuccess(true);
         setTimeout(() => navigateBack(), 600);
