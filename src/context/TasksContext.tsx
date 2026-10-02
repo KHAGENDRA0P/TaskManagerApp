@@ -1,4 +1,3 @@
-import { LoadingState } from "@/components/common";
 import { TASKS } from "@/data/tasks";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -21,6 +20,7 @@ export interface Task {
 
 interface TasksContextType {
   tasks: Task[];
+  isLoading: boolean;
   addTask: (newTask: Task) => void;
 }
 
@@ -28,6 +28,7 @@ const STORAGE_KEY = "@task_manager_tasks";
 
 const TasksContext = createContext<TasksContextType>({
   tasks: TASKS,
+  isLoading: true,
   addTask: () => {},
 });
 
@@ -68,12 +69,8 @@ export function TasksProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  if (isLoading) {
-    return <LoadingState />;
-  }
-
   return (
-    <TasksContext.Provider value={{ tasks, addTask }}>
+    <TasksContext.Provider value={{ tasks, isLoading, addTask }}>
       {children}
     </TasksContext.Provider>
   );

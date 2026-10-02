@@ -6,18 +6,18 @@ import {
   StatusFilter,
   TaskCard,
 } from "@/components/TaskList";
-import { EmptyState } from "@/components/common";
+import { EmptyState, LoadingState } from "@/components/common";
 import { useTasks } from "@/context/TasksContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const PROJECTS = ["All", "Work", "Personal", "Ideas", "Grocery", "Design"];
 const STATUSES = ["All", "To Do", "In Progress", "Completed"];
 
 export default function TaskListScreen() {
-  const { tasks } = useTasks();
+  const { tasks, isLoading } = useTasks();
   const [selectedProject, setSelectedProject] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [search, setSearch] = useState("");
@@ -40,7 +40,9 @@ export default function TaskListScreen() {
     return checkProject && checkStatus && checkSearch;
   });
 
-  const taskCountText = `${visibleTasks.length} ${visibleTasks.length === 1 ? "task" : "tasks"}`;
+  const taskCountText = isLoading
+    ? "Loading tasks..."
+    : `${visibleTasks.length} ${visibleTasks.length === 1 ? "task" : "tasks"}`;
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
@@ -64,21 +66,24 @@ export default function TaskListScreen() {
         onSelectStatus={setSelectedStatus}
       />
 
-      {visibleTasks.length === 0 ? (
-        <EmptyState />
+      {isLoading ? (
+        <LoadingState />
       ) : (
-        <ScrollView contentContainerStyle={styles.taskList}>
-          {visibleTasks.map((task) => (
+        <FlatList
+          data={visibleTasks}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
             <TaskCard
-              key={task.id}
-              title={task.title}
-              status={task.status}
-              priority={task.priority}
-              assignee={task.assignee}
-              dueDate={task.dueDate}
+              title={item.title}
+              status={item.status}
+              priority={item.priority}
+              assignee={item.assignee}
+              dueDate={item.dueDate}
             />
-          ))}
-        </ScrollView>
+          )}
+          ListEmptyComponent={<EmptyState />}
+          contentContainerStyle={styles.taskList}
+        />
       )}
     </SafeAreaView>
   );
@@ -94,5 +99,6 @@ const styles = StyleSheet.create({
   },
   taskList: {
     paddingBottom: 40,
+    flexGrow: 1,
   },
 });
