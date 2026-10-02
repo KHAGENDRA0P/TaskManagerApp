@@ -17,9 +17,23 @@ A modern, offline-first mobile task management application built with **React Na
 
 ## Screenshots
 
-| Task List Screen | Create Task Screen |
-|:---:|:---:|
-| <img src="assets/screenshots/task-list.png" width="280" alt="Task List Screen" /> | <img src="assets/screenshots/create-task.png" width="280" alt="Create Task Screen" /> |
+### 1. Main Screens
+
+| Screen 1: Task List | Category Filtered | Screen 2: Create Task |
+|:---:|:---:|:---:|
+| <img src="assets/screenshots/taskList.jpeg" width="240" alt="Task List Screen" /> | <img src="assets/screenshots/taskList-ProjectSelector.jpg" width="240" alt="Category Filtered Screen" /> | <img src="assets/screenshots/createTask.jpg" width="240" alt="Create Task Screen" /> |
+
+### 2. Form Flow
+
+| Form Fields & Options | Native Date Picker | Saving in Progress | Task Created |
+|:---:|:---:|:---:|:---:|
+| <img src="assets/screenshots/createTask2.jpg" width="200" alt="Form Fields & Options" /> | <img src="assets/screenshots/DatePicker.jpeg" width="200" alt="Native Date Picker" /> | <img src="assets/screenshots/createTask-savingState.jpg" width="200" alt="Saving State" /> | <img src="assets/screenshots/createTask-SavedState.jpg" width="200" alt="Task Created" /> |
+
+### 3. Application States
+
+| Loading State | Saving State | Error State | Successful Save State | Empty State |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="assets/screenshots/taskList-LoadingState.jpeg" width="180" alt="Loading State" /> | <img src="assets/screenshots/createTask-savingState.jpg" width="180" alt="Saving State" /> | <img src="assets/screenshots/RequiredFieldValidation.jpg" width="180" alt="Error State" /> | <img src="assets/screenshots/createTask-SavedState.jpg" width="180" alt="Successful Save State" /> | <img src="assets/screenshots/taskList-emptyState.jpg" width="180" alt="Empty State" /> |
 
 ---
 
