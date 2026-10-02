@@ -21,7 +21,7 @@ A modern, offline-first mobile task management application built with **React Na
 
 | Screen 1: Task List | Category Filtered | Screen 2: Create Task |
 |:---:|:---:|:---:|
-| <img src="assets/screenshots/taskList.jpeg" width="240" alt="Task List Screen" /> | <img src="assets/screenshots/taskList-ProjectSelector.jpg" width="240" alt="Category Filtered Screen" /> | <img src="assets/screenshots/createTask.jpg" width="240" alt="Create Task Screen" /> |
+| <img src="assets/screenshots/taskList.jpeg" width="240" alt="Task List Screen" /> | <img src="assets/screenshots/taskList-ProjectSelector.jpg" width="240" alt="Category Filtered Screen" /> | <img src="assets/screenshots/createTask1.jpg" width="240" alt="Create Task Screen" /> |
 
 ### 2. Form Flow
 
